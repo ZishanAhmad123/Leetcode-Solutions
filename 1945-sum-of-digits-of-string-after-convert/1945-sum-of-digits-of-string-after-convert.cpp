@@ -1,31 +1,17 @@
-class Solution 
-{
-public:
-    int getLucky(string& s, int k) 
-    {
-        int sum = 0;
-        for (char c : s)
-        {
-            sum += sumDigits(c - 'a' + 1);
+
+class Solution {
+ public:
+    int sumdigit(int  n){ if(n==0)return 0;return n%10 +sumdigit(n/10);}
+   
+    int getLucky(string s, int k) {
+        int sum=0;
+        for(auto c: s){
+            sum+=sumdigit(c-'a'+1);
         }
-        k--;
-        
-        while (k)
-        {
-            sum = sumDigits(sum);
+       k--;
+        while(k){
+            sum=sumdigit(sum);
             k--;
-        }
-        
-        return sum;
-    }
-private:
-    int sumDigits(int n)
-    {
-        int sum = 0;
-        while (n)
-        {
-            sum += n % 10;
-            n /= 10;
         }
         return sum;
     }
