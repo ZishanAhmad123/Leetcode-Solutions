@@ -1,6 +1,10 @@
 class Solution {
 public:
+    void FastIO(){
+            ios_base::sync_with_stdio(0);cin.tie(0);}
+    
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        FastIO();
         vector<vector<int>>subset_all;
         set<vector<int>>s;
         
