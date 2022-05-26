@@ -17,7 +17,7 @@ class Solution
     {
         // Your code here
         if(n==0)return 0;
-         int cnt=1;
+         int cnt=0;
         while(n){
             
             if(n&1){
@@ -28,7 +28,7 @@ class Solution
             
             n=n>>1;
         }
-        return cnt;
+        return cnt+1;
     }
 };
 
