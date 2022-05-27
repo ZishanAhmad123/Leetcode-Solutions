@@ -1,11 +1,9 @@
 class Solution {
 public:
     int getSum(int a, int b) {
-       while(b != 0) {
-            unsigned carry = a&b;
-            a ^= b;
-            b = carry << 1;
-        }
-        return a;
+      int xor1=a^b;
+         unsigned  carry=a&b;
+        if(carry==0)return xor1;
+        else return getSum(xor1, carry<<1);
     }
 };
