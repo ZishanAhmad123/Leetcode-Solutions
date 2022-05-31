@@ -1,4 +1,3 @@
-
 class Solution {
 public:
      void FastIO() {
@@ -8,9 +7,8 @@ public:
       FastIO();
         
         
-        if(divisor == -1 && dividend == INT_MIN)  // Check edge case of INT_MIN -> INT_MAX rollover
-            return INT_MAX;
-       
+      if (dividend == INT_MIN && divisor == -1 ) return INT_MAX;
+        if (dividend == INT_MIN && divisor == 1 ) return INT_MIN;
         else if (divisor == 1)   // Check if divisor is 1
             return dividend;
        
