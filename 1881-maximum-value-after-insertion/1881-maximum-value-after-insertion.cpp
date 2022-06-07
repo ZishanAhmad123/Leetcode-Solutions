@@ -14,7 +14,7 @@ class Solution
 				if (n[i] <= X) {
 					res += n[i];
 				}
-				else if ((n[i] > X)) {
+				else  {
 					res += X;
 					res += n.substr(i, len - i + 1);
 					break;
@@ -28,7 +28,7 @@ class Solution
 				if (n[i] >= X) {
 					res += n[i];
 				}
-				else if((n[i] < X)){
+				else {
 					res += X;
 					res += n.substr(i, len - i + 1);
 					break;
