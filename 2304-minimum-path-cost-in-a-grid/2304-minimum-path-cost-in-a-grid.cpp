@@ -1,10 +1,9 @@
 class Solution {
 public:
-int dp[55][55];
+//int dp[55][55];
     
-    int f (int i,int j,int n,int m,vector<vector<int>>& grid, vector<vector<int>>& moveCost)
+    int f (int i,int j,int n,int m,vector<vector<int>>& grid, vector<vector<int>>& moveCost, vector<vector<int>>&dp)
     {
-        int cost = 0;
         if(i == n-1)
            return grid[i][j];
         
@@ -15,7 +14,7 @@ int dp[55][55];
         
         for(int k=0;k<m;k++)
         {
-            mn = min(mn, grid[i][j] +f(i+1,k,n,m,grid,moveCost) + moveCost[grid[i][j]][k]);
+            mn = min(mn, grid[i][j] +f(i+1,k,n,m,grid,moveCost,dp) + moveCost[grid[i][j]][k]);
         }
         
         return dp[i][j] = mn;
@@ -24,11 +23,11 @@ int dp[55][55];
     int minPathCost(vector<vector<int>>& grid, vector<vector<int>>& moveCost) {
         int cost = 0 ,res = 1e9 , n = grid.size() , m = grid[0].size();
         
-        memset(dp,-1,sizeof(dp));
+       vector<vector<int>>dp(n, vector<int>(m, -1));
         
         for(int i=0;i<m;i++)
         {
-            cost = f (0,i,n,m,grid,moveCost);
+            cost = f (0,i,n,m,grid,moveCost, dp);
             res = min(res,cost);
         }
         
