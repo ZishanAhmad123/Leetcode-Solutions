@@ -12,15 +12,17 @@
 class Solution {
 public:   
        bool ans=false;
+    vector<int>v;
     void f(TreeNode* root, int sum, int tsum){
         if(!root)return ;
+       
+        v.push_back(root->val);
         sum+=root->val;
         if(!root->left && !root->right){
             if(sum==tsum){
                 ans=true;
             return;}
         }
-        
         f(root->left, sum, tsum);
         f(root->right, sum, tsum);
        
