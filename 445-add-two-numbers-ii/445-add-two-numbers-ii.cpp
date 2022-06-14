@@ -9,54 +9,66 @@
  * };
  */
 class Solution {
-public:
-    ListNode* reverse(ListNode* head){
-        ListNode* curr = head;
-        ListNode* prev = NULL;
-        
-        while(curr){
-            ListNode* next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
-        }
-        return prev;
+public: 
+  ListNode*   stacktolist(stack<int>s){
+        ListNode* head=NULL;
+        ListNode* temp=NULL;
+      while(s.size()){
+          int a =s.top();
+          s.pop();
+          ListNode* node= new ListNode(a);
+          
+          if(head==NULL){
+              head=node;
+              temp=node;
+          }
+          else{
+              temp->next=node;
+              temp=temp->next;
+          }
+      }
+      return head;
     }
     
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-          l1 = reverse(l1);
-          l2 = reverse(l2);
-        
-        ListNode* head = new ListNode(0);
-        ListNode* temp = head;
-        
-        int carry = 0;
-        
-        while(l1 or l2){
-            
-            int sum = 0;
-            
-            if(l1) sum += l1->val;
-            if(l2) sum += l2->val;
-            
-            sum += carry;
-            carry = sum/10;
-            sum = sum%10;
-            
-            temp->next = new ListNode(sum);
-            
-            if(l1) l1 = l1->next;
-            if(l2) l2 = l2->next;
-            
-            temp = temp->next;
+          stack<int>s1;
+          stack<int>s2, ans;
+        int carry=0;
+     
+         while(l1!=NULL)
+        {
+            s1.push(l1->val);
+            l1=l1->next;
+        }
+        while(l2!=NULL)
+        {
+            s2.push(l2->val);
+            l2=l2->next;
+        }
+    
+        while(!s1.empty() and !s2.empty()){
+            int a=s1.top();int b=s2.top();
+            s1.pop();s2.pop();
+            int sum=a+b+carry;
+            carry=sum/10;
+            ans.push(sum%10);
+        }
+        while(s1.size()){
+             int sum=s1.top()+carry;
+            s1.pop();
+            ans.push(sum%10);
+            carry=sum/10;
+        }
+        while(s2.size()){
+             int sum=s2.top()+carry;
+            s2.pop();
+            ans.push(sum%10);
+            carry=sum/10;
+        }
+        if(carry!=0){
+            ans.push(carry);
         }
         
-         if(carry!=0){
-            temp->next = new ListNode(carry);
-        }
-        
-        head = reverse(head->next);
-        
-        return head;     
+        return stacktolist(ans);    
     }
 };
