@@ -33,7 +33,7 @@ public:
         int resLen = 0;
         int l,r;
         for(int i=0;i<n;i++){
-            //odd length
+             //odd length
             l = i; r = i;
             while(l>=0 && r<n && s[l]==s[r]){
                 if(r-l+1>resLen){
@@ -57,21 +57,6 @@ public:
         }
         
         return res;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
     }
 };
