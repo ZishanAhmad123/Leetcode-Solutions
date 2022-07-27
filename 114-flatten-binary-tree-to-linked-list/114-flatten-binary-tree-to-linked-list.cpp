@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void traverse(TreeNode* root) {
+        if(root) {
+            nodes.push_back(root);
+            traverse(root->left);
+            traverse(root->right);
+        }
+    }
+    
+    vector<TreeNode*> nodes;
+    void flatten(TreeNode* root) {
+        traverse(root);
+        int n = nodes.size();
+        TreeNode* temp = root;
+        for(int i = 1;i<n;i++) {
+            temp->right = nodes[i];
+            temp->left = NULL;
+            temp = temp->right;
+        }
+    }
+};
