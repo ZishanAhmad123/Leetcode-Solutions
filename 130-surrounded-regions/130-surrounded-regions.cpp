@@ -1,21 +1,28 @@
+struct node {
+        int x , y;
+        node(int X, int Y){
+            x=X;
+            y=Y;
+        }
+    };
 class Solution {
 public:
     void bfs(int a,int b,vector<vector<char>>& board){
         int n=board.size();
         int m=board[0].size();
         
-        queue<pair<int,int>>q;
-        q.push({a,b});
+       // queue<pair<int,int>>q;
+        queue<node>q;
+        q.push(node(a, b));
         
         int dx[4]={0,0,1,-1};
         int dy[4]={1,-1,0,0};
         
-        while(!q.empty()){   
-           pair<int,int>pr=q.front();
-            q.pop();
+        while(!q.empty()){ 
             
-            int x=pr.first;
-            int y=pr.second;
+            int x=q.front().x;
+            int y=q.front().y;
+            q.pop();
             
             for(int i=0;i<4;i++){
                 int new_x=x+dx[i];
@@ -23,7 +30,7 @@ public:
                 if(new_x>=0 && new_x<n && new_y>=0 && new_y<m){
                     if(board[new_x][new_y]=='O'){
                         board[new_x][new_y]='Z';
-                         q.push({new_x,new_y});
+                         q.push(node(new_x, new_y));
                     }
                 }
             }
@@ -35,7 +42,8 @@ public:
         int m=board[0].size();
         
         for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
+            for(int j=0;j<m;j++){ // an 'O' should not be flipped if: // - It is on the border, or // - It is adjacent to an 'O' that should not be flipped.
+                
                 //check 'O' in the border region and convert its connected regions to 'Z'
                 if(i==0 || i==n-1 || j==0 || j==m-1){
                     if(board[i][j]=='O'){
