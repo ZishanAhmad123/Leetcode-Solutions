@@ -1,40 +1,37 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    	int findHeight(TreeNode *root){
-    if (root == NULL)
-        return 0;
-
-    int lh = findHeight(root->left);
-    int rh = findHeight(root->right);
-    return max(lh, rh) + 1;
-}
-    void f(TreeNode* root, int &sum, int height ){
-      if(!root)return ;
-        if(height==1)
-            sum+=root->val;
-        f(root->left, sum ,height-1);
-        f(root->right, sum , height-1);
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> myvec;
+        if(root==NULL){
+            return myvec;
+        }
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int size = q.size();
+            vector<int> level;
+            for(int i=0;i<size;i++)
+            {
+                TreeNode* node = q.front();
+                q.pop();
+                if(node->left!=NULL)
+                {
+                    q.push(node->left);
+                }
+                if(node->right!=NULL)
+                {
+                    q.push(node->right);
+                }
+                level.push_back(node->val);
+            }
+            myvec.push_back(level);
+            level.clear();
+        }
+        return myvec;
     }
-
-    
     int deepestLeavesSum(TreeNode* root) {
-       int sum=0;
-        if(root==NULL)return 0;
-        
-        int height=findHeight(root);
-        f(root, sum, height);
-        return sum;
-        
+        vector<vector<int>> myvec = levelOrder(root);
+        vector<int> ans = myvec[myvec.size()-1];    // last vector is our ans
+        return accumulate(ans.begin(),ans.end(),0);
     }
 };
