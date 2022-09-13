@@ -10,9 +10,9 @@
  * };
  */
 class Solution {
-public:  unsigned int count=0;
+public:   long long count=0;
     int mod = 1e9+7;
-    vector<int>v;
+    vector<long long>v;
     void getsum(TreeNode* root, int targetSum){
         if(root==NULL)return;
         
@@ -20,7 +20,7 @@ public:  unsigned int count=0;
         getsum(root->left,targetSum);
         getsum(root->right, targetSum);
         
-       unsigned int  temp=0;
+       long long  temp=0;
         for(int i=v.size()-1; i>=0; i--){
             temp+=v[i];
             if(temp==targetSum)count++;
