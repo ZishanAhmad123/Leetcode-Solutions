@@ -1,15 +1,26 @@
-class Solution {
-public:
-   
-    int singleNumber(vector<int>& nums) {
-         int x1 = 0, x2 = 0, x3 = 0;
-        
-        for (int i = 0; i < nums.size(); i ++) {
-            x3 ^= x2 & nums[i];
-            x2 ^= x1 & nums[i];
-            x1 ^= (~x2) & nums[i];
+class Solution
+{
+    public:
+        void FastIO()
+        {
+            ios_base::sync_with_stdio(0);
+            cin.tie(0);
         }
-        
-        return x1;
-          }
+    int singleNumber(vector<int> &nums)
+    {
+        FastIO();
+        int ans = 0;
+        for (int i = 0; i < 32; i++)
+        {
+            int cnt1=0, cnt0 = 0;
+            for (int j = 0; j < nums.size(); j++)
+            {
+                if (nums[j] &(1 << i)) cnt1++;
+                else cnt0++;
+            }
+            if (cnt1%3)
+                ans |= (1 << i);
+        }
+        return ans;
+    }
 };
