@@ -1,57 +1,32 @@
 class Solution {
 public:
-    class DSU{
-    vector<int> par,rank;
-    int n;
-    public:
-    DSU(int n)
-    {
-        this->par.resize(n);
-        this->rank.resize(n);
-        this->n=n;
-        for(int i=0;i<n;i++)
-            par[i]=i;
-    }
-    int find(int x)
-    {
-        if(x==par[x])return x;
-        return par[x]=find(par[x]);
-    }
-    void Union(int a, int b)
-    {
-        int a_par=find(a);
-        int b_par=find(b);
-        if(a_par==b_par)
-            return;
-        if(rank[a_par]<rank[b_par])
-        {
-            par[a_par]=b_par;
-        }
-        else if(rank[b_par]<rank[a_par]){
-            par[b_par]=a_par;
-        }
-        else
-        {
-            par[a_par]=b_par;
-            rank[b_par]+=1;
-        }
-    }
-};
+ static const int N=1e6;
+ 
+int parent[N];
+int Size[N];
+void make(int v){parent[v]=v;Size[v]=1;}
+int find(int v){if(v==parent[v]) return v;return parent[v]=find(parent[v]);}
+void Union(int a, int b){a= find(a);b=find(b);if(a!=b){if(Size[a]>Size[b])swap(a, b);parent[b]=a;	Size[a]+=Size[b];}}
+                                                       
     bool equationsPossible(vector<string>& equations) {
-        DSU dsu(27);
+        
+        for(int i=0; i<26 ;i++){
+            make(i);
+        }
+        
         for(auto e: equations){
             if(e[1]=='='){
-                dsu.Union(e[0]-'a', e[3]-'a');
+                Union(e[0]-'a', e[3]-'a');
             }
         }
         
         for(auto e: equations){
             if(e[1]=='!'){
-                int p1=dsu.find(e[0]-'a');
-                int p2=dsu.find(e[3]-'a');
+                int p1=find(e[0]-'a');
+                int p2=find(e[3]-'a');
                 if(p1==p2)return false;
             }
         }
-    return true   ; 
+    return true ;
     }
 };
