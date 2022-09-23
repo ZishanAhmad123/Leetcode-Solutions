@@ -12,7 +12,7 @@ public:
         for(i=2;i<=n;i++)
         {
             x=log2(i)+1;
-            sum=sum*pow(2,x)+i;
+            sum=(sum<<x)+i;
             sum=sum%mod;
         }
         return sum;
