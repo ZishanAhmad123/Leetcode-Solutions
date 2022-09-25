@@ -1,19 +1,7 @@
 class Solution {
 public:
     bool validateBinaryTreeNodes(int n, vector<int>& left, vector<int>& right) {
-       // queue<int>q;
-       //  set<int>st;
-       //  q.push(0);
-       //  while(!q.empty()){
-       //      int cur=q.front();
-       //      if(st.c ount(cur) )return false;
-       //      st.insert(cur);
-       //      if(leftChild[cur]!=-1)
-       //          q.push(leftChild[cur]);
-       //      if(rightChild[cur]!=-1)
-       //          q.push(rightChild[cur]);
-       //  }
-       // return st.size()==n;
+      
         vector<vector<int>>mat(n) ;
         int edges = 0 ;
         vector<int>visited(n,0) ;
@@ -56,7 +44,7 @@ public:
             auto temp = pq.front() ;
             pq.pop() ;
             
-            visited[temp] = 1 ;
+           // visited[temp] = 1 ;
             cnt++ ;
             
              for(auto i:mat[temp]){
